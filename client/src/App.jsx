@@ -1,9 +1,16 @@
 import { Box, Button, Input, VStack, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/todos";
 
 function App() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    axios.get(API_URL).then((res) => setTodos(res.data));
+  }, []);
 
   const addTodo = () => {
     if (!todo) return;
@@ -24,7 +31,7 @@ function App() {
         </Button>
         <VStack spacing={2} align="start" w="100%">
           {todos.map((t, index) => (
-            <Text key={index}>{t}</Text>
+            <Text key={t.id}>{t.title}</Text>
           ))}
         </VStack>
       </VStack>
