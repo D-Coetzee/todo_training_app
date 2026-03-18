@@ -1,21 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { Container, Heading, Button, Input, VStack, ButtonGroup } from "@chakra-ui/react"
-
+import { Box, Button, Input, VStack, Text } from "@chakra-ui/react";
+import { useState } from "react";
 
 function App() {
+  const [todo, setTodo] = useState("");
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = () => {
+    if (!todo) return;
+    setTodos([...todos, todo]);
+    setTodo("");
+  };
+
   return (
-    <Container maxW="container.md" py={10}>
-      <Heading mb={6}>Todo App</Heading>
-      <ButtonGroup>
-        <Button colorScheme="teal">
+    <Box p={4} maxW="400px" mx="auto">
+      <VStack spacing={4}>
+        <Input
+          placeholder="Enter a todo"
+          value={todo}
+          onChange={(e) => setTodo(e.target.value)}
+        />
+        <Button colorScheme="teal" onClick={addTodo}>
           Add Todo
         </Button>
-      </ButtonGroup>
-    </Container>
-  )
+        <VStack spacing={2} align="start" w="100%">
+          {todos.map((t, index) => (
+            <Text key={index}>{t}</Text>
+          ))}
+        </VStack>
+      </VStack>
+    </Box>
+  );
 }
 
-export default App
+export default App;
