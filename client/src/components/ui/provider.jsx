@@ -1,12 +1,9 @@
-'use client'
+import { Provider } from "@/components/ui/provider"
 
-import { ChakraProvider } from '@chakra-ui/react'
-import { ColorModeProvider } from './color-mode'
-
-export function Provider({ children }) {
+function App({ Component, pageProps }) {
   return (
-    <ColorModeProvider>
-      <ChakraProvider>{children}</ChakraProvider>
-    </ColorModeProvider>
+    <Provider>
+      <Component {...pageProps} />
+    </Provider>
   )
 }
